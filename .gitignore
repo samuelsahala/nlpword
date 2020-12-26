@@ -1,6 +1,6 @@
 # Distribution / packaging
 .Python
-env/
+flask/env/
 *.manifest
 *.spec
-
+.idea/vcs.xml

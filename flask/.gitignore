@@ -3,4 +3,4 @@
 env/
 *.manifest
 *.spec
-
+.idea/vcs.xml
