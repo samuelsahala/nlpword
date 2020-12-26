@@ -1,6 +1,0 @@
-# Distribution / packaging
-.Python
-env/
-*.manifest
-*.spec
-.idea/vcs.xml

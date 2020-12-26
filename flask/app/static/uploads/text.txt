@@ -1,1 +1,6 @@
-text
+# TODO & Comments:
+#   data cleaning process (clean and format)
+# 	corpus - collection of texts - pandas use dataframe
+# 	clean - remove numbers, lowercase , remove punctuation(?-,) use regular expressions
+# 	tokenization - split by word (remove stop words?)
+#	format

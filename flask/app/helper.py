@@ -1,8 +1,3 @@
-# data cleaning process (clean and format)
-# 	corpus - collection of texts - pandas use dataframe
-# 	clean - remove numbers, lowercase , remove punctuation(?-,) use regular expressions
-# 	tokenization - split by word (remove stop words?)
-#	format
 import os
 import pathlib
 import pickle
@@ -22,6 +17,7 @@ class Trie:
 		self.counter = 0
 	
 	def add_word(self, word, data_set):
+		# data_set = stored trie
 		self.root = data_set if data_set else self.root
 		current_node = self.root
 		for letter in word:
@@ -31,12 +27,16 @@ class Trie:
 			current_node = current_node[letter]
 		# end of the word
 		if "*" in current_node:
+			# count if exists
 			current_node["*"] = current_node.get("*", 0) + 1
 		else:
+			# first one? init counter to 1
 			current_node["*"] = 1
 		return {"status": True, "data": self.root}
 	
 	def word_exist(self, word, data_set):
+		# O(M) - M length of the word
+		# data_set = stored trie
 		current_node = data_set if data_set else self.root
 		for letter in word:
 			if letter not in current_node:
@@ -45,17 +45,21 @@ class Trie:
 		return current_node["*"]
 
 
+# init Trie instance
 m_trie = Trie()
 
 
+# add words to trie store
+#  TODO: fix bottleneck for loop over words
 def trie_word_save(clean_text_bag):
 	data_set = load_obj("trie-words")
 	for word in clean_text_bag.split():
 		res = m_trie.add_word(word, data_set if data_set else None)
 		save_obj(res["data"], "trie-words")
-	return res["status"]
+		return res["status"]
 
 
+# search word in the trie store
 def trie_search_word(word):
 	data_set = load_obj("trie-words")
 	res = m_trie.word_exist(word, data_set)
@@ -65,11 +69,13 @@ def trie_search_word(word):
 		return False
 
 
+# save dict to pickle file
 def save_obj(obj, name):
 	with open(name+'.pkl', 'wb') as f:
 		pickle.dump(obj, f, protocol=2)
 
 
+# load pickle by filename
 def load_obj(name):
 	try:
 		with open(name+'.pkl', 'rb') as f:
@@ -79,12 +85,7 @@ def load_obj(name):
 		return False
 
 
-def read_dataframe():
-	cwd = os.getcwd()
-	data = pd.read_pickle(cwd + '/app/static/uploads/' + "cleandfword.pkl")
-	return data
-
-
+# Regex cleaner
 def re_clean_text_bag(text):
 	# lower case
 	text = text.lower()
@@ -113,6 +114,7 @@ def lxml_tag_visible(element):
 	return True
 
 
+# Url check
 def url_reachable(url):
 	rex_url = re.compile(
 		r'^(?:http|ftp)s?://'  # http:// or https://
@@ -131,3 +133,4 @@ def url_reachable(url):
 			return False
 	else:
 		return False
+

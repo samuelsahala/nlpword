@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template, request
+import os
 
+from flask import Blueprint, render_template, request
 import requests
 import docx
 from bs4 import BeautifulSoup
@@ -8,16 +9,6 @@ from .helper import lxml_tag_visible, re_clean_text_bag, url_reachable, trie_wor
 
 main = Blueprint('main', __name__)
 
-
-# The endpoint should be able to accept the input in 3 ways:
-#
-# A simple string sent in the request.
-#
-# A file path (the contents of the file will be used as input).
-#
-# A URL (the data returned from the URL will be used as input).
-# requests beatifulsoup
-# The input may be very large (up to tens of gigabytes).
 
 @main.route('/')
 @main.route('/index.html')
@@ -44,11 +35,25 @@ def search_word():
 def string_to_text_bag():
     if request.method == 'POST':
         texts = request.form['string']
-        print(texts)
         if texts == '':
             return render_template('index.html', message="please enter required fields")
-        return render_template('success.html', message="status")
-
+        if "target" in texts:
+            if texts.endswith("\r\n"):
+                texts = texts[:-2]
+            filename = texts[texts.index("=") + len("="):]
+            script_dir = os.path.dirname(__file__)
+            rel_path = "static/uploads/" + filename
+            abs_file_path = os.path.join(script_dir, rel_path)
+            f = open(abs_file_path, "r")
+            text_bag = f.read()
+            clean_text_bag = re_clean_text_bag(text_bag)
+            status = trie_word_save(clean_text_bag)
+            return render_template('success.html', message=status)
+        else:
+            clean_text_bag = re_clean_text_bag(texts)
+            status = trie_word_save(clean_text_bag)
+            return render_template('success.html', message=status)
+       
 
 @main.route('/submit-url', methods=['POST'])
 def url_to_text_bag():
@@ -71,18 +76,13 @@ def file_to_text_bag():
     if request.method == "POST":
         if request.files:
             file = request.files["doc_file"]
-            clean_file_bag = ms_file_upload_handler(file)
-            status = trie_word_save(clean_file_bag)
+            doc = docx.Document(file)
+            text_bag = u" ".join(p.text for p in doc.paragraphs if p.text)
+            clean_text_bag = re_clean_text_bag(text_bag)
+            status = trie_word_save(clean_text_bag)
             return render_template('success.html', message=status)
     else:
         return render_template('index.html', message="please enter valid file format doc,docx")
-
-
-def ms_file_upload_handler(doc_file):
-    doc = docx.Document(doc_file)
-    text_bag = u" ".join(p.text for p in doc.paragraphs if p.text)
-    clean_text_bag = re_clean_text_bag(text_bag)
-    return clean_text_bag
 
 
 # @main.errorhandler(TemplateNotFound)
