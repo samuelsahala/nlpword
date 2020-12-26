@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="stylesheet" href="../static/style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Word Statistics</title>
+</head>
+<body>
+<div class="container">
+    <a href="/" class="btn-ws">Word Counter</a>
+
+    {% if message %}
+    <p class="message">{{ message | safe }}</p>
+    {% endif %}
+
+    <img src="../static/logo.png" alt="" class="logo"/>
+    <h1>Word statistics</h1>
+    <div class="form-group">
+        <form action="/search" method="POST" class="ws-search">
+            <input type="text" placeholder="Search.." name="search_word">
+            <button style="width:50px;" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    {% if word %}
+    <table>
+        <tr>
+            <th>Word</th>
+            <th>Count</th>
+        </tr>
+        <tr>
+            <td> {{ word }}</td>
+            <th> {{ count }}</th>
+        </tr>
+    </table>
+    {% endif %}
+</div>
+</body>
+</html>

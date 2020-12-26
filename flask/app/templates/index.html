@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="stylesheet" href="../static/style.css"/>
+    <title>Shmuel</title>
+</head>
+<body>
+<div class="container">
+    <a href="/ws" class="btn-ws">Word Statistics</a>
+    <img src="../static/logo.png" alt="stam-logo" class="logo"/>
+    {% if message %}
+    <p class="message">{{ message | safe }}</p>
+    {% endif %}
+
+    <div class="form-group">
+        <form action="/submit-string" method="POST">
+            <h3>String</h3>
+            <textarea
+                    name="string"
+                    id=""
+                    cols="30"
+                    rows="10"
+                    placeholder="String"
+            ></textarea>
+            <input type="submit" value="Submit" class="btn"/>
+        </form>
+    </div>
+
+
+    <div class="form-group">
+        <form action="/submit-url" method="POST">
+            <h3>URL</h3>
+            <textarea
+                    name="url"
+                    id="url"
+                    cols="10"
+                    rows="1"
+                    placeholder="URL"
+            ></textarea>
+            <input type="submit" value="Submit" class="btn"/>
+        </form>
+    </div>
+
+    <div class="form-group">
+        <h3>File</h3>
+        <form action="/submit-file" method="POST" enctype="multipart/form-data">
+            <input type="file" name="doc_file" accept=".doc,.docx"/>
+            <input type="submit" value="Submit" class="btn"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

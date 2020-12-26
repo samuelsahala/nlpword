@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="stylesheet" href="../static/style.css"/>
+    <title>Thank You!</title>
+</head>
+<body>
+<div class="container">
+     <a href="/ws" class="btn-ws">Word Statistics</a>
+     <a href="/" class="btn-ws">Word Counter</a>
+    <img src="../static/logo.png" alt="" class="logo"/>
+    <h1>Confirmation</h1>
+    <h2>Added to task queue</h2>
+        {% if message %}
+    <p class="message">{{ message | safe }}</p>
+    {% endif %}
+</div>
+</body>
+</html>
