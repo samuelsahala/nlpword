@@ -1,6 +1,6 @@
 import os
-
 from flask import Blueprint, render_template, request
+
 import requests
 import docx
 from bs4 import BeautifulSoup

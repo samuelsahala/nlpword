@@ -1,5 +1,3 @@
-import os
-import pathlib
 import pickle
 import re
 import string
@@ -55,8 +53,8 @@ def trie_word_save(clean_text_bag):
 	data_set = load_obj("trie-words")
 	for word in clean_text_bag.split():
 		res = m_trie.add_word(word, data_set if data_set else None)
-		save_obj(res["data"], "trie-words")
-		return res["status"]
+	save_obj(res["data"], "trie-words")
+	return res["status"]
 
 
 # search word in the trie store
@@ -99,6 +97,8 @@ def re_clean_text_bag(text):
 	text = re.sub('[‘’“”…]', '', text)
 	# remove \n
 	text = re.sub('\n', '', text)
+	# remove
+	text = re.sub(' +', ' ', text)
 	return text
 
 
