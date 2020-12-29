@@ -17,7 +17,8 @@ and allows you to count the frequency usage of each word in your text.(Language 
 │   │        └── helper.py (all they helper function generic split, create trie store
 │   │        └── main.py (main routes - /submit-string , /submit-url, /submit-file)
 │   └── env
-│   └── app.py - create flask app
+│   └── app.py - running the app.
+├── nginx
 ```
 
 ### General guidelines of the process 
