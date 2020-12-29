@@ -11,13 +11,14 @@
 <body>
 <div class="container">
     <a href="/" class="btn-ws">Word Counter</a>
+    <a href="/ws" class="btn-ws">Word Statistics</a>
 
     {% if message %}
     <p class="message">{{ message | safe }}</p>
     {% endif %}
 
     <img src="../static/logo.png" alt="" class="logo"/>
-    <h1>Word statistics</h1>
+    <h1>Word Statistics</h1>
     <div class="form-group">
         <form action="/search" method="POST" class="ws-search">
             <input type="text" placeholder="Search.." name="search_word">

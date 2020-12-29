@@ -9,26 +9,28 @@ from bs4.element import Comment
 
 class Trie:
 	def __init__(self):
-		# if empty string return true
-		self.root = {"*": "*"}
-		self.counter = 0
-	
+		self.root = {"*": 0}
+		
 	def add_word(self, word, data_set):
 		# data_set = stored trie
 		self.root = data_set if data_set else self.root
 		current_node = self.root
 		for letter in word:
+			if letter == "*":
+				if "*" in current_node:
+					# count if exists
+					current_node["*"] = current_node.get("*", 0) + 1
+				else:
+					# first one? init counter to 1
+					current_node["*"] = 1
+				current_node = self.root
+				continue
 			if letter not in current_node:
 				# if not children - create a new dict to move the pointer one level "down"
 				current_node[letter] = dict()
 			current_node = current_node[letter]
 		# end of the word
-		if "*" in current_node:
-			# count if exists
-			current_node["*"] = current_node.get("*", 0) + 1
-		else:
-			# first one? init counter to 1
-			current_node["*"] = 1
+		
 		return {"status": True, "data": self.root}
 	
 	def word_exist(self, word, data_set):
@@ -47,11 +49,10 @@ m_trie = Trie()
 
 
 # add words to trie store
-#  TODO: fix bottleneck for loop over words
 def trie_word_save(clean_text_bag):
 	data_set = load_obj("trie-words")
-	for word in clean_text_bag.split():
-		res = m_trie.add_word(word, data_set if data_set else None)
+	# for word in clean_text_bag.split():
+	res = m_trie.add_word(clean_text_bag, data_set if data_set else None)
 	save_obj(res["data"], "trie-words")
 	return res["status"]
 
@@ -59,7 +60,7 @@ def trie_word_save(clean_text_bag):
 # search word in the trie store
 def trie_search_word(word):
 	data_set = load_obj("trie-words")
-	res = m_trie.word_exist(word, data_set)
+	res = m_trie.word_exist(word.lower(), data_set)
 	if res:
 		return {"word": word, "count": res}
 	else:
@@ -96,8 +97,10 @@ def re_clean_text_bag(text):
 	text = re.sub('[‘’“”…]', '', text)
 	# remove \n
 	text = re.sub('\n', '', text)
+	text = re.sub('\b(\s+\t+)\b','',text)
 	# remove
 	text = re.sub(' +', ' ', text)
+	text = re.sub(' +', '*', text)
 	return text
 
 
