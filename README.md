@@ -23,3 +23,7 @@ and allows you to count the frequency usage of each word in your text.(Language 
 
 ### General guidelines of the process 
 [![Untitled-Diagram.png](https://i.postimg.cc/Y9BgD0km/Untitled-Diagram.png)](https://postimg.cc/4KwmmJYJ)
+
+
+### 
+[![Screen-Shot-2020-12-30-at-0-00-45.png](https://i.postimg.cc/28t1Xy78/Screen-Shot-2020-12-30-at-0-00-45.png)](https://postimg.cc/HVQWrpNf)
