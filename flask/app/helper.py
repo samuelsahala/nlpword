@@ -2,10 +2,9 @@ import pickle
 import re
 import string
 from urllib.parse import urlparse
-import pandas as pd
+
 import requests
 from bs4.element import Comment
-from collections import Counter, defaultdict
 
 
 class Trie:
