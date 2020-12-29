@@ -21,4 +21,4 @@ and allows you to count the frequency usage of each word in your text.(Language 
 ```
 
 ### General guidelines of the process 
-<img src="https://pasteboard.co/JHdZKY6.png" width="100" height="100">
+<img src="https://pasteboard.co/bf695e9b-ba3e-49f4-9ec1-542e0afe063e" width="100" height="100">
