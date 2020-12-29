@@ -10,7 +10,10 @@ and allows you to count the frequency usage of each word in your text.(Language 
 ├── flask - main folder
 │   ├── app
 │   │    └── static
-│   │        └── template (templete for easy testing, index.html - main page inputs, success.html - results, ws.html - search)
+│   │        └── template (templete for easy testing, 
+│   │            ├── main page - inputs
+│   │            ├── success.html - results
+│   │            ├── ws.html - search
 │   │        └── helper.py (all they helper function generic split, create trie store
 │   │        └── main.py (main routes - /submit-string , /submit-url, /submit-file)
 │   └── env
