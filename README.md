@@ -24,4 +24,3 @@ and allows you to count the frequency usage of each word in your text.(Language 
 ### General guidelines of the process 
 [![Untitled-Diagram.png](https://i.postimg.cc/Y9BgD0km/Untitled-Diagram.png)](https://postimg.cc/4KwmmJYJ)
 
-[hint](https://github.com/Yogev911/words-counter)
